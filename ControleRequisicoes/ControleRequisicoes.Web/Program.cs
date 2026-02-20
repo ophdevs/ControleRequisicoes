@@ -1,4 +1,4 @@
-using ControleRequisicoes.Components;
+using ControleRequisicoes.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
