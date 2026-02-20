@@ -1,0 +1,77 @@
+﻿@page "/requisicoes"
+
+<h3>Cadastro de Requisições</h3>
+
+<div class="mb-3">
+    <label>Número da Req:</label>
+    <input class="form-control" @bind="novaRequisicao.NumeroReq" />
+</div>
+
+<div class="mb-3">
+    <label>Recebido por:</label>
+    <input class="form-control" @bind="novaRequisicao.RecebidoPor" />
+</div>
+
+<div class="mb-3">
+    <label>Entregue por:</label>
+    <input class="form-control" @bind="novaRequisicao.EntreguePor" />
+</div>
+
+<div class="mb-3">
+    <label>Data:</label>
+    <input type="date" class="form-control" @bind="novaRequisicao.Data" />
+</div>
+
+<button class="btn btn-primary" @onclick="Adicionar">Salvar</button>
+
+<hr />
+
+<h4>Lista de Requisições</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Número</th>
+            <th>Recebido</th>
+            <th>Entregue</th>
+            <th>Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var req in requisicoes)
+        {
+            <tr>
+                <td>@req.NumeroReq</td>
+                <td>@req.RecebidoPor</td>
+                <td>@req.EntreguePor</td>
+                <td>@req.Data.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    public class Requisicao
+    {
+        public string NumeroReq { get; set; }
+        public string RecebidoPor { get; set; }
+        public string EntreguePor { get; set; }
+        public DateTime Data { get; set; } = DateTime.Today;
+    }
+
+    private Requisicao novaRequisicao = new();
+    private List<Requisicao> requisicoes = new();
+
+    private void Adicionar()
+    {
+        requisicoes.Add(new Requisicao
+        {
+            NumeroReq = novaRequisicao.NumeroReq,
+            RecebidoPor = novaRequisicao.RecebidoPor,
+            EntreguePor = novaRequisicao.EntreguePor,
+            Data = novaRequisicao.Data
+        });
+
+        novaRequisicao = new();
+    }
+}
